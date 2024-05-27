@@ -37,6 +37,12 @@ class Way(Element):
 class Relation(Element):
     def __init__(self, members, tags={}):
         super().__init__(tags)
+        if len(members) < 1:
+            raise ValueError("Relation must contain at least 1 member")
+        else:
+            for member in members:
+                if type(member["element"]) not in (Node, Way, Relation):
+                    raise ValueError("A member element must be Node, Way or Relation object")
         self.members = members
 
     def __repr__(self):
