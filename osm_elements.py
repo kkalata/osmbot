@@ -22,6 +22,12 @@ class Node(Element):
 class Way(Element):
     def __init__(self, nodes, tags={}):
         super().__init__(tags)
+        if len(nodes) < 2:
+            raise ValueError("Way must contain at least 2 nodes")
+        else:
+            for node in nodes:
+                if type(node) is not Node:
+                    raise TypeError("A node must be Node object")
         self.nodes = nodes
 
     def __repr__(self):
