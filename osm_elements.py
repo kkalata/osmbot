@@ -6,6 +6,10 @@ class Element:
 class Node(Element):
     def __init__(self, coords, tags):
         super().__init__(tags)
+        if coords["lat"] < -90 or coords["lat"] > 90:
+            raise ValueError("Latitude is not in range [-90, 90]")
+        elif coords["lon"] < -180 or coords["lon"] > 180:
+            raise ValueError("Longitude is not in range [-180, 180]")
         self.coords = coords
         
     def __repr__(self):
