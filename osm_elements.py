@@ -1,10 +1,13 @@
 class Element:
     def __init__(self, tags):
+        for key, value in tags.items():
+            if type(key) is not str or type(value) is not str:
+                raise TypeError("All keys and values must be str")
         self.tags = tags
 
 
 class Node(Element):
-    def __init__(self, coords, tags):
+    def __init__(self, coords, tags={}):
         super().__init__(tags)
         if coords["lat"] < -90 or coords["lat"] > 90:
             raise ValueError("Latitude is not in range [-90, 90]")
@@ -17,7 +20,7 @@ class Node(Element):
 
 
 class Way(Element):
-    def __init__(self, tags, nodes):
+    def __init__(self, nodes, tags={}):
         super().__init__(tags)
         self.nodes = nodes
 
@@ -26,7 +29,7 @@ class Way(Element):
 
 
 class Relation(Element):
-    def __init__(self, tags, members):
+    def __init__(self, members, tags={}):
         super().__init__(tags)
         self.members = members
 
